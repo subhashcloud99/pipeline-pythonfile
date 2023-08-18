@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('clone') {
+            steps {
+                git (
+                    url:"git url ",
+                    branch:"main"
+                )
+            }
+        }
+        stage ('Build') {
+            steps {
+                sh 'sudo docker build -t pyhton1 .'
+            }
+        }
+        stage ('deploy') {
+            steps {
+                sh 'sudo docker run -p 8081:8081 -d pyhton1'
+            }
+        }
+    }
+}
